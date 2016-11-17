@@ -31902,7 +31902,7 @@
 	module.exports = Component({
 	  selector: "app",
 	  template: `
-	    Hello Webpack!
+	    Hello Webpack!!!!!!!
 	  `
 	}).Class({
 	  constructor: function () {}

@@ -28,7 +28,6 @@
     "babel-loader": "^6.2.4",
     "concurrently": "^2.1.0",
     "css-loader": "^0.23.1",
-    "d3": "3.4.4",
     "extract-text-webpack-plugin": "^1.0.1",
     "jasmine-core": "^2.4.1",
     "live-server": "^1.0.0",
