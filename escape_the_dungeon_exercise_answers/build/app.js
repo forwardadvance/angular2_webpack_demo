@@ -31879,13 +31879,13 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var { NgModule } = __webpack_require__(/*! @angular/core */ 372);
-	var { FormsModule } = __webpack_require__(/*! @angular/forms */ 384);
+	var { FormsModule } = __webpack_require__(/*! @angular/forms */ 376);
 	var { BrowserModule } = __webpack_require__(/*! @angular/platform-browser */ 373);
-	var AppComponent = __webpack_require__(/*! ./app.component */ 376);
-	var HeroComponent = __webpack_require__(/*! ./hero.component */ 380);
-	var HeroEditorComponent = __webpack_require__(/*! ./hero.editor.component */ 381);
-	var InventoryComponent = __webpack_require__(/*! ./inventory.component */ 382);
-	var LocationComponent = __webpack_require__(/*! ./location.component */ 383);
+	var AppComponent = __webpack_require__(/*! ./app.component */ 377);
+	var HeroComponent = __webpack_require__(/*! ./hero.component */ 381);
+	var HeroEditorComponent = __webpack_require__(/*! ./hero.editor.component */ 382);
+	var InventoryComponent = __webpack_require__(/*! ./inventory.component */ 383);
+	var LocationComponent = __webpack_require__(/*! ./location.component */ 384);
 	
 	module.exports = NgModule({
 	  imports: [BrowserModule, FormsModule],
@@ -31897,246 +31897,6 @@
 
 /***/ },
 /* 376 */
-/*!*********************************!*\
-  !*** ./source/app.component.js ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var { Component } = __webpack_require__(/*! @angular/core */ 372);
-	var heroModel = __webpack_require__(/*! ./hero.model */ 377);
-	var inventoryModel = __webpack_require__(/*! ./inventory.model */ 378);
-	var locationModel = __webpack_require__(/*! ./location.model */ 379);
-	
-	module.exports = Component({
-	  selector: "app",
-	  template: `
-	    <div>
-	      <a class="button" (click)="editMode = !editMode">
-	        <span *ngIf="!editMode">Edit</span>
-	        <span *ngIf="editMode">Done</span>
-	      </a>
-	    </div>
-	    <div *ngIf="!editMode">
-	      <div class="row">
-	        <div >
-	          <hero [hero]="hero"></hero>
-	        </div>
-	      </div>
-	      <div class="row">
-	        <div >
-	          <inventory [inventory]="inventory"></inventory>
-	        </div>
-	      </div>
-	      <div class="row">
-	        <location [location]="location" (pickUpItem)="handlePickUpItem($event)"></location>
-	      </div>
-	      <div class="row">
-	        <button class="button" *ngIf="location.exits.north" (click)="hero.moveNorth()">North</button>
-	        <button class="button" *ngIf="location.exits.south" (click)="hero.moveSouth()">South</button>
-	        <button class="button" *ngIf="location.exits.east" (click)="hero.moveEast()">East</button>
-	        <button class="button" *ngIf="location.exits.west" (click)="hero.moveWest()">West</button>
-	      </div>
-	    </div>
-	
-	
-	    <div class="row" *ngIf="editMode">
-	      <heroEditor [hero]="hero" (done)="editMode=false"></heroEditor>
-	    </div>
-	
-	
-	    `
-	}).Class({
-	  constructor: function () {
-	    this.editMode = false;
-	    this.hero = heroModel;
-	    this.location = locationModel;
-	    this.inventory = inventoryModel;
-	    this.handlePickUpItem = function (item) {
-	      console.log('item picked up', item);
-	      this.inventory.addItem(item);
-	      this.location.removeItem(item);
-	    };
-	  }
-	});
-
-/***/ },
-/* 377 */
-/*!******************************!*\
-  !*** ./source/hero.model.js ***!
-  \******************************/
-/***/ function(module, exports) {
-
-	module.exports = {
-	  name: "LLars Bunderchump",
-	  x: 0,
-	  y: 0,
-	  moveNorth: function () {
-	    this.x++;
-	  },
-	  moveSouth: function () {
-	    this.x--;
-	  },
-	  moveEast: function () {
-	    this.y--;
-	  },
-	  moveWest: function () {
-	    this.y++;
-	  }
-	};
-
-/***/ },
-/* 378 */
-/*!***********************************!*\
-  !*** ./source/inventory.model.js ***!
-  \***********************************/
-/***/ function(module, exports) {
-
-	
-	module.exports = {
-	  addItem: function (item) {
-	    this.items.push(item);
-	  },
-	  items: []
-	};
-
-/***/ },
-/* 379 */
-/*!**********************************!*\
-  !*** ./source/location.model.js ***!
-  \**********************************/
-/***/ function(module, exports) {
-
-	
-	module.exports = {
-	  name: "Nondescript Corridor",
-	  description: "It is very dark. To the north you can just make out a faint glimmer of golden light.",
-	  exits: {
-	    north: true
-	  },
-	  removeItem: function (item) {
-	    this.items.splice(this.items.indexOf(item), 1);
-	  },
-	  items: [{
-	    name: "Rusty Sword",
-	    type: "weapon",
-	    damage: 1,
-	    description: "A Rusty old Sword, knocked and well used"
-	  }, {
-	    name: "Cheese",
-	    type: "food",
-	    health: 0.5,
-	    description: "A Piece of Mouldy Cheese"
-	  }]
-	};
-
-/***/ },
-/* 380 */
-/*!**********************************!*\
-  !*** ./source/hero.component.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var { Component } = __webpack_require__(/*! @angular/core */ 372);
-	
-	module.exports = Component({
-	  selector: "hero",
-	  inputs: ['hero'],
-	  template: `
-	    <h1>{{hero.name}}</h1>
-	    <pre>{{hero | json}}</pre>
-	  `
-	}).Class({
-	  constructor: function () {}
-	});
-
-/***/ },
-/* 381 */
-/*!*****************************************!*\
-  !*** ./source/hero.editor.component.js ***!
-  \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var { Component, EventEmitter } = __webpack_require__(/*! @angular/core */ 372);
-	
-	module.exports = Component({
-	  selector: "heroEditor",
-	  inputs: ['hero'],
-	  outputs: ['done'],
-	  template: `
-	      <form (submit)="handleSubmit()">
-	        <label for="name">Name:</label>
-	        <input name="name" type="text" [(ngModel)]="hero.name" />
-	        <button class="button">Done</button>
-	      </form>
-	    `
-	}).Class({
-	  constructor: function () {
-	    this.done = new EventEmitter();
-	    this.handleSubmit = function () {
-	      this.done.emit(this.hero);
-	    };
-	  }
-	});
-
-/***/ },
-/* 382 */
-/*!***************************************!*\
-  !*** ./source/inventory.component.js ***!
-  \***************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var { Component } = __webpack_require__(/*! @angular/core */ 372);
-	
-	module.exports = Component({
-	  selector: "inventory",
-	  inputs: ['inventory'],
-	  template: `
-	      <h2>Inventory</h2>
-	      <li *ngFor="let item of inventory.items">
-	        {{item.name}}
-	      </li>
-	    `
-	}).Class({
-	  constructor: function () {}
-	});
-
-/***/ },
-/* 383 */
-/*!**************************************!*\
-  !*** ./source/location.component.js ***!
-  \**************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var { Component, EventEmitter } = __webpack_require__(/*! @angular/core */ 372);
-	
-	module.exports = Component({
-	  selector: "location",
-	  inputs: ['location'],
-	  outputs: ['pickUpItem'],
-	  template: `
-	
-	      <h2>You are in: {{location.name}}</h2>
-	      <p>{{location.description}}</p>
-	      <h3>Items at this location</h3>
-	      <ul>
-	        <li *ngFor="let item of location.items">
-	          {{item.name}}
-	          <a (click)="handlePickUpItem(item)">Pick up</a>
-	        </li>
-	      </ul>
-	    `
-	}).Class({
-	  constructor: function () {
-	    this.pickUpItem = new EventEmitter();
-	    this.handlePickUpItem = function (item) {
-	      console.log('item', item);
-	      this.pickUpItem.emit(item);
-	    };
-	  }
-	});
-
-/***/ },
-/* 384 */
 /*!***********************************************!*\
   !*** ./~/@angular/forms/bundles/forms.umd.js ***!
   \***********************************************/
@@ -33456,6 +33216,246 @@
 	     * @stable
 	     */var ReactiveFormsModule=function(){function ReactiveFormsModule(){}ReactiveFormsModule.decorators=[{type:_angular_core.NgModule,args:[{declarations:[REACTIVE_DRIVEN_DIRECTIVES],providers:[FormBuilder,RadioControlRegistry],exports:[InternalFormsSharedModule,REACTIVE_DRIVEN_DIRECTIVES]}]}];/** @nocollapse */ReactiveFormsModule.ctorParameters=[];return ReactiveFormsModule;}();exports.AbstractControlDirective=AbstractControlDirective;exports.AbstractFormGroupDirective=AbstractFormGroupDirective;exports.CheckboxControlValueAccessor=CheckboxControlValueAccessor;exports.ControlContainer=ControlContainer;exports.NG_VALUE_ACCESSOR=NG_VALUE_ACCESSOR;exports.DefaultValueAccessor=DefaultValueAccessor;exports.NgControl=NgControl;exports.NgControlStatus=NgControlStatus;exports.NgControlStatusGroup=NgControlStatusGroup;exports.NgForm=NgForm;exports.NgModel=NgModel;exports.NgModelGroup=NgModelGroup;exports.FormControlDirective=FormControlDirective;exports.FormControlName=FormControlName;exports.FormGroupDirective=FormGroupDirective;exports.FormArrayName=FormArrayName;exports.FormGroupName=FormGroupName;exports.NgSelectOption=NgSelectOption;exports.SelectControlValueAccessor=SelectControlValueAccessor;exports.SelectMultipleControlValueAccessor=SelectMultipleControlValueAccessor;exports.MaxLengthValidator=MaxLengthValidator;exports.MinLengthValidator=MinLengthValidator;exports.PatternValidator=PatternValidator;exports.RequiredValidator=RequiredValidator;exports.FormBuilder=FormBuilder;exports.AbstractControl=AbstractControl;exports.FormArray=FormArray;exports.FormControl=FormControl;exports.FormGroup=FormGroup;exports.NG_ASYNC_VALIDATORS=NG_ASYNC_VALIDATORS;exports.NG_VALIDATORS=NG_VALIDATORS;exports.Validators=Validators;exports.FormsModule=FormsModule;exports.ReactiveFormsModule=ReactiveFormsModule;});
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 377 */
+/*!*********************************!*\
+  !*** ./source/app.component.js ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var { Component } = __webpack_require__(/*! @angular/core */ 372);
+	var heroModel = __webpack_require__(/*! ./hero.model */ 378);
+	var inventoryModel = __webpack_require__(/*! ./inventory.model */ 379);
+	var locationModel = __webpack_require__(/*! ./location.model */ 380);
+	
+	module.exports = Component({
+	  selector: "app",
+	  template: `
+	    <div>
+	      <a class="button" (click)="editMode = !editMode">
+	        <span *ngIf="!editMode">Edit</span>
+	        <span *ngIf="editMode">Done</span>
+	      </a>
+	    </div>
+	    <div *ngIf="!editMode">
+	      <div class="row">
+	        <div >
+	          <hero [hero]="hero"></hero>
+	        </div>
+	      </div>
+	      <div class="row">
+	        <div >
+	          <inventory [inventory]="inventory"></inventory>
+	        </div>
+	      </div>
+	      <div class="row">
+	        <location [location]="location" (pickUpItem)="handlePickUpItem($event)"></location>
+	      </div>
+	      <div class="row">
+	        <button class="button" *ngIf="location.exits.north" (click)="hero.moveNorth()">North</button>
+	        <button class="button" *ngIf="location.exits.south" (click)="hero.moveSouth()">South</button>
+	        <button class="button" *ngIf="location.exits.east" (click)="hero.moveEast()">East</button>
+	        <button class="button" *ngIf="location.exits.west" (click)="hero.moveWest()">West</button>
+	      </div>
+	    </div>
+	
+	
+	    <div class="row" *ngIf="editMode">
+	      <heroEditor [hero]="hero" (done)="editMode=false"></heroEditor>
+	    </div>
+	
+	
+	    `
+	}).Class({
+	  constructor: function () {
+	    this.editMode = false;
+	    this.hero = heroModel;
+	    this.location = locationModel;
+	    this.inventory = inventoryModel;
+	    this.handlePickUpItem = function (item) {
+	      console.log('item picked up', item);
+	      this.inventory.addItem(item);
+	      this.location.removeItem(item);
+	    };
+	  }
+	});
+
+/***/ },
+/* 378 */
+/*!******************************!*\
+  !*** ./source/hero.model.js ***!
+  \******************************/
+/***/ function(module, exports) {
+
+	module.exports = {
+	  name: "LLars Bunderchump",
+	  x: 0,
+	  y: 0,
+	  moveNorth: function () {
+	    this.x++;
+	  },
+	  moveSouth: function () {
+	    this.x--;
+	  },
+	  moveEast: function () {
+	    this.y--;
+	  },
+	  moveWest: function () {
+	    this.y++;
+	  }
+	};
+
+/***/ },
+/* 379 */
+/*!***********************************!*\
+  !*** ./source/inventory.model.js ***!
+  \***********************************/
+/***/ function(module, exports) {
+
+	
+	module.exports = {
+	  addItem: function (item) {
+	    this.items.push(item);
+	  },
+	  items: []
+	};
+
+/***/ },
+/* 380 */
+/*!**********************************!*\
+  !*** ./source/location.model.js ***!
+  \**********************************/
+/***/ function(module, exports) {
+
+	
+	module.exports = {
+	  name: "Nondescript Corridor",
+	  description: "It is very dark. To the north you can just make out a faint glimmer of golden light.",
+	  exits: {
+	    north: true
+	  },
+	  removeItem: function (item) {
+	    this.items.splice(this.items.indexOf(item), 1);
+	  },
+	  items: [{
+	    name: "Rusty Sword",
+	    type: "weapon",
+	    damage: 1,
+	    description: "A Rusty old Sword, knocked and well used"
+	  }, {
+	    name: "Cheese",
+	    type: "food",
+	    health: 0.5,
+	    description: "A Piece of Mouldy Cheese"
+	  }]
+	};
+
+/***/ },
+/* 381 */
+/*!**********************************!*\
+  !*** ./source/hero.component.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var { Component } = __webpack_require__(/*! @angular/core */ 372);
+	
+	module.exports = Component({
+	  selector: "hero",
+	  inputs: ['hero'],
+	  template: `
+	    <h1>{{hero.name}}</h1>
+	    <pre>{{hero | json}}</pre>
+	  `
+	}).Class({
+	  constructor: function () {}
+	});
+
+/***/ },
+/* 382 */
+/*!*****************************************!*\
+  !*** ./source/hero.editor.component.js ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var { Component, EventEmitter } = __webpack_require__(/*! @angular/core */ 372);
+	
+	module.exports = Component({
+	  selector: "heroEditor",
+	  inputs: ['hero'],
+	  outputs: ['done'],
+	  template: `
+	      <form (submit)="handleSubmit()">
+	        <label for="name">Name:</label>
+	        <input name="name" type="text" [(ngModel)]="hero.name" />
+	        <button class="button">Done</button>
+	      </form>
+	    `
+	}).Class({
+	  constructor: function () {
+	    this.done = new EventEmitter();
+	    this.handleSubmit = function () {
+	      this.done.emit(this.hero);
+	    };
+	  }
+	});
+
+/***/ },
+/* 383 */
+/*!***************************************!*\
+  !*** ./source/inventory.component.js ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var { Component } = __webpack_require__(/*! @angular/core */ 372);
+	
+	module.exports = Component({
+	  selector: "inventory",
+	  inputs: ['inventory'],
+	  template: `
+	      <h2>Inventory</h2>
+	      <li *ngFor="let item of inventory.items">
+	        {{item.name}}
+	      </li>
+	    `
+	}).Class({
+	  constructor: function () {}
+	});
+
+/***/ },
+/* 384 */
+/*!**************************************!*\
+  !*** ./source/location.component.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var { Component, EventEmitter } = __webpack_require__(/*! @angular/core */ 372);
+	
+	module.exports = Component({
+	  selector: "location",
+	  inputs: ['location'],
+	  outputs: ['pickUpItem'],
+	  template: `
+	
+	      <h2>You are in: {{location.name}}</h2>
+	      <p>{{location.description}}</p>
+	      <h3>Items at this location</h3>
+	      <ul>
+	        <li *ngFor="let item of location.items">
+	          {{item.name}}
+	          <a (click)="handlePickUpItem(item)">Pick up</a>
+	        </li>
+	      </ul>
+	    `
+	}).Class({
+	  constructor: function () {
+	    this.pickUpItem = new EventEmitter();
+	    this.handlePickUpItem = function (item) {
+	      console.log('item', item);
+	      this.pickUpItem.emit(item);
+	    };
+	  }
+	});
 
 /***/ }
 /******/ ]);

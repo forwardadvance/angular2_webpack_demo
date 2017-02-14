@@ -3,6 +3,8 @@ var heroModel = require('./hero.model');
 var inventoryModel = require('./inventory.model');
 var locationModel = require('./location.model');
 
+
+
 module.exports = Component({
     selector: "app",
     template:
