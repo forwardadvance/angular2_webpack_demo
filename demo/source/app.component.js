@@ -8,6 +8,5 @@ module.exports = Component({
   `
 })
 .Class({
-  constructor: function() {
-  }
+  constructor: function() {}
 });
