@@ -5,7 +5,6 @@ module.exports = {
   output: {
     filename: './build/app.js',
   },
-  sourceMap: true,
   resolve: {
     extensions: ['', '.js']
   },
